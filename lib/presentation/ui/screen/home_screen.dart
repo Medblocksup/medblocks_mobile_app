@@ -439,3 +439,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ],
   );}
+
+// gestion de l'état de chargement de la liste
