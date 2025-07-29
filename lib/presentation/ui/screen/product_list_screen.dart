@@ -101,3 +101,5 @@ class _ProductListScreenState extends State<ProductListScreen> {
     );
   }
 }
+
+// état vide quand la recherche ne renvoie rien
