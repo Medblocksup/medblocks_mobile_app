@@ -448,3 +448,5 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 }
+
+// marge de défilement sur la fiche produit
