@@ -62,3 +62,5 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   }
 }
+
+// grille de catégories sur deux colonnes
