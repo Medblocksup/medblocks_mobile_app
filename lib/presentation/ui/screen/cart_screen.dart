@@ -261,3 +261,5 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }}
+
+// bornes de quantité dans le panier
