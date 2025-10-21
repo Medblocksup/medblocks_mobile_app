@@ -101,3 +101,5 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 }
+
+// validation des champs d'adresse
