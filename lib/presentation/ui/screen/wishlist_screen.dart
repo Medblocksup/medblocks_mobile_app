@@ -154,3 +154,5 @@ class _WishListScreenState extends State<WishListScreen> {
     );
   }
 }
+
+// synchronisation de la liste de souhaits
