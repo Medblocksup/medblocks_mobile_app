@@ -316,3 +316,4 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+// validation du formulaire de profil
