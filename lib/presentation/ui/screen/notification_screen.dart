@@ -15,3 +15,5 @@ class NotificationScreen extends StatelessWidget {
     );
   }
 }
+
+// compteur de notifications non lues
