@@ -548,3 +548,5 @@ class _AccountScreenState extends State<AccountScreen> {
     super.dispose();
   }
 }
+
+// regroupement des sections du compte
