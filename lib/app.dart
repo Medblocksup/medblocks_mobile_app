@@ -19,3 +19,5 @@ class Medblocks extends StatelessWidget {
     );
   }
 }
+
+// initialisation du thème centralisée
