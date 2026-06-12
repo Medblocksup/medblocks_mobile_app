@@ -49,6 +49,8 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
               BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.house_fill,), label: 'Home'),
               BottomNavigationBarItem(
+                  icon: Icon(Icons.camera_enhance_outlined,), label: 'Scan'),
+              BottomNavigationBarItem(
                   icon: Icon(Icons.category), label: 'Categories'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.shopping_cart), label: 'Cart'),

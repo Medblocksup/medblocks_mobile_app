@@ -3,7 +3,8 @@ description: "A new Flutter project."
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.3+5 # playstore
+#version: 1.0.5+8 # playStore
+version: 1.0.3+5 # appStore
 
 environment:
   sdk: '>=3.3.3 <4.0.0'
@@ -32,6 +33,7 @@ dependencies:
   shimmer: ^3.0.0
   webview_flutter: ^4.5.0
   percent_indicator: ^4.0.1
+  qr_code_scanner:
 
 dev_dependencies:
   flutter_test:

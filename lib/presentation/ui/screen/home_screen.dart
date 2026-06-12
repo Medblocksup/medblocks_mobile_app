@@ -9,6 +9,7 @@ import 'package:medical_app/presentation/state_holders/popular_product_controlle
 import 'package:medical_app/presentation/state_holders/read_profile_data_controller.dart';
 import 'package:medical_app/presentation/state_holders/special_product_controller.dart';
 import 'package:medical_app/presentation/ui/screen/Profile_Screen.dart';
+import 'package:medical_app/presentation/ui/screen/auth/verify_email_screen.dart';
 import 'package:medical_app/presentation/ui/screen/notification_screen.dart';
 import 'package:medical_app/presentation/ui/screen/product_list_screen.dart';
 import 'package:medical_app/presentation/ui/utility/app_colors.dart';
@@ -382,8 +383,13 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () async {
               // await AuthController.clearAuthData();
               // Get.to(() => const VerifyEmailScreen());
-              await Get.find<ReadProfileDataController>().readProfileData(AuthController.token!);
-              Get.to(()=> ProfileScreen());
+              if(AuthController.token ==  null){
+                Get.to(()=> const VerifyEmailScreen());
+              }else{
+                await Get.find<ReadProfileDataController>().readProfileData(AuthController.token!);
+                Get.to(()=> const ProfileScreen());
+              }
+
             },
             iconData: Icons.person,
           ),
@@ -393,7 +399,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           CircleIconButton(
             onTap: () {
-              Get.to(()=> NotificationScreen());
+              Get.to(()=> const NotificationScreen());
             },
             iconData: Icons.notifications,
           ),
