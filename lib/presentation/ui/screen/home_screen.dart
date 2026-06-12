@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:medical_app/data/models/product_model.dart';
 import 'package:medical_app/presentation/state_holders/auth_controller.dart';
 import 'package:medical_app/presentation/state_holders/bottom_nav_controller.dart';
@@ -8,7 +9,7 @@ import 'package:medical_app/presentation/state_holders/new_product_controller.da
 import 'package:medical_app/presentation/state_holders/popular_product_controller.dart';
 import 'package:medical_app/presentation/state_holders/read_profile_data_controller.dart';
 import 'package:medical_app/presentation/state_holders/special_product_controller.dart';
-import 'package:medical_app/presentation/ui/screen/Profile_Screen.dart';
+import 'package:medical_app/presentation/ui/screen/account_screen.dart';
 import 'package:medical_app/presentation/ui/screen/auth/verify_email_screen.dart';
 import 'package:medical_app/presentation/ui/screen/category_screen.dart';
 import 'package:medical_app/presentation/ui/screen/notification_screen.dart';
@@ -380,32 +381,34 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
-          CircleIconButton(
-            onTap: () async {
-              // await AuthController.clearAuthData();
-              // Get.to(() => const VerifyEmailScreen());
-              if(AuthController.token ==  null){
-                Get.to(()=> const VerifyEmailScreen());
-              }else{
-                await Get.find<ReadProfileDataController>().readProfileData(AuthController.token!);
-                Get.to(()=> const ProfileScreen());
-              }
-
-            },
-            iconData: Icons.person,
-          ),
+          // CircleIconButton(
+          //   onTap: () async {
+          //     // await AuthController.clearAuthData();
+          //     // Get.to(() => const VerifyEmailScreen());
+          //     if(AuthController.token ==  null){
+          //       Get.to(()=> const VerifyEmailScreen());
+          //     }else{
+          //       await Get.find<ReadProfileDataController>().readProfileData(AuthController.token!);
+          //       Get.to(()=> const AccountScreen());
+          //     }
+          //
+          //   },
+          //   iconData: Icons.person,
+          // ),
           const SizedBox(
             width: 8,
           ),
 
-          CircleIconButton(
+          GestureDetector(
+
             onTap: () {
               Get.to(()=> const NotificationScreen());
             },
-            iconData: Icons.shopping_cart,
+            child: const Icon(Icons.shopping_cart,size: 28,),
+
           ),
           const SizedBox(
-            width: 8,
+            width: 20,
           ),
         ],
       );

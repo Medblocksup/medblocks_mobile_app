@@ -12,14 +12,14 @@ import '../widgets/circular_progress_indicator.dart';
 import 'auth/verify_email_screen.dart';
 import 'main_bottom_nav_screen.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class AccountScreen extends StatefulWidget {
+  const AccountScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<AccountScreen> createState() => _AccountScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _AccountScreenState extends State<AccountScreen> {
   final readProfileController = Get.find<ReadProfileDataController>();
   final authController = Get.find<AuthController>();
 
@@ -445,23 +445,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () async{
-                          await AuthController.clearAuthData();
-                          Get.to(() => const VerifyEmailScreen());
-                        },
-                        child: const Text(
-                          "Logout",
-                          style: TextStyle(
-                            fontFamily: 'mn',
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    )
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   child: ElevatedButton(
+                    //     onPressed: () async{
+                    //       await AuthController.clearAuthData();
+                    //       Get.to(() => const VerifyEmailScreen());
+                    //     },
+                    //     child: const Text(
+                    //       "Logout",
+                    //       style: TextStyle(
+                    //         fontFamily: 'mn',
+                    //         fontSize: 18,
+                    //         fontWeight: FontWeight.w500,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // )
                   ],
                   ),
                 ),

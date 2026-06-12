@@ -53,9 +53,9 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.document_scanner_rounded), label: 'Appointment'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart), label: 'Cart'),
+                  icon: Icon(Icons.favorite), label: 'Saved'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite), label: 'Wishlist'),
+                  icon: Icon(Icons.person), label: 'Account'),
             ]),
         body: controller.screens[controller.selectedIndex],
       );

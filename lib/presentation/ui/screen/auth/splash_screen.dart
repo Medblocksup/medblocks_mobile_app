@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Spacer(),
             AppLogo(),
             Text(
-              'MDBLOCKS',
+              'MEDBLOCKS',
               style: TextStyle(
                 fontFamily: 'Poppins',
                 fontSize: 26,

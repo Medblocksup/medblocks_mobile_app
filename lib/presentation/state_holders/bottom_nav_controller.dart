@@ -3,6 +3,7 @@ import 'package:medical_app/presentation/ui/screen/cart_screen.dart';
 import 'package:medical_app/presentation/ui/screen/category_screen.dart';
 import 'package:medical_app/presentation/ui/screen/doctor_appointment_screen.dart';
 import 'package:medical_app/presentation/ui/screen/home_screen.dart';
+import 'package:medical_app/presentation/ui/screen/profile_screen.dart';
 import 'package:medical_app/presentation/ui/screen/scanner_screen.dart';
 import 'package:medical_app/presentation/ui/screen/wishlist_screen.dart';
 import 'package:flutter/widgets.dart';
@@ -14,8 +15,8 @@ class BottomNavController extends GetxController {
     HomeScreen(),
     ScannerScreen(isQrCode: true),
     DoctorListScreen(),
-    CartScreen(),
-    WishListScreen()
+    WishListScreen(),
+    ProfileScreen()
   ];
 
   changeIndex(value) {
