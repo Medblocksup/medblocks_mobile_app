@@ -51,7 +51,7 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.camera_enhance_outlined,), label: 'Scan'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.category), label: 'Categories'),
+                  icon: Icon(Icons.document_scanner_rounded), label: 'Appointment'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.shopping_cart), label: 'Cart'),
               BottomNavigationBarItem(

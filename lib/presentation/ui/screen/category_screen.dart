@@ -15,11 +15,7 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        return Get.find<BottomNavController>().changeIndex(0);
-      },
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
 
           elevation: 0,
@@ -61,7 +57,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             }),
           ),
         ),
-      ),
-    );
+      );
+
   }
 }

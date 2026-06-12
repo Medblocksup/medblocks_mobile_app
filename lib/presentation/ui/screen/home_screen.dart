@@ -10,6 +10,7 @@ import 'package:medical_app/presentation/state_holders/read_profile_data_control
 import 'package:medical_app/presentation/state_holders/special_product_controller.dart';
 import 'package:medical_app/presentation/ui/screen/Profile_Screen.dart';
 import 'package:medical_app/presentation/ui/screen/auth/verify_email_screen.dart';
+import 'package:medical_app/presentation/ui/screen/category_screen.dart';
 import 'package:medical_app/presentation/ui/screen/notification_screen.dart';
 import 'package:medical_app/presentation/ui/screen/product_list_screen.dart';
 import 'package:medical_app/presentation/ui/utility/app_colors.dart';
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 isAll: false,
                 title: 'All Categories',
                 onTap: () {
-                  Get.find<BottomNavController>().changeIndex(1);
+                  Get.to(()=> const CategoryScreen());
                 },
               ),
               categoryList,
@@ -401,7 +402,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               Get.to(()=> const NotificationScreen());
             },
-            iconData: Icons.notifications,
+            iconData: Icons.shopping_cart,
           ),
           const SizedBox(
             width: 8,

@@ -1,6 +1,7 @@
 import 'package:medical_app/presentation/state_holders/auth_controller.dart';
 import 'package:medical_app/presentation/ui/screen/cart_screen.dart';
 import 'package:medical_app/presentation/ui/screen/category_screen.dart';
+import 'package:medical_app/presentation/ui/screen/doctor_appointment_screen.dart';
 import 'package:medical_app/presentation/ui/screen/home_screen.dart';
 import 'package:medical_app/presentation/ui/screen/scanner_screen.dart';
 import 'package:medical_app/presentation/ui/screen/wishlist_screen.dart';
@@ -12,7 +13,7 @@ class BottomNavController extends GetxController {
   List<Widget> screens = const [
     HomeScreen(),
     ScannerScreen(isQrCode: true),
-    CategoryScreen(),
+    DoctorListScreen(),
     CartScreen(),
     WishListScreen()
   ];
