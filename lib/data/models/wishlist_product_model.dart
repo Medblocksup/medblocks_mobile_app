@@ -48,8 +48,8 @@ class WishlistProductModel {
 class Data {
   Data({
     int? id,
-    String? productId,
-    String? userId,
+    int? productId,
+    int? userId,
     String? createdAt,
     String? updatedAt,
     ProductModel? product,
@@ -73,16 +73,16 @@ class Data {
   }
 
   int? _id;
-  String? _productId;
-  String? _userId;
+  int? _productId;
+  int? _userId;
   String? _createdAt;
   String? _updatedAt;
   ProductModel? _product;
 
   Data copyWith({
     int? id,
-    String? productId,
-    String? userId,
+    int? productId,
+    int? userId,
     String? createdAt,
     String? updatedAt,
     ProductModel? product,
@@ -98,9 +98,9 @@ class Data {
 
   int? get id => _id;
 
-  String? get productId => _productId;
+  int? get productId => _productId;
 
-  String? get userId => _userId;
+  int? get userId => _userId;
 
   String? get createdAt => _createdAt;
 

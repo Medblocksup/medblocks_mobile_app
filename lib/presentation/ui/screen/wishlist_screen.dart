@@ -5,6 +5,8 @@ import 'package:medical_app/presentation/ui/widgets/shimmer_effect/shimmer_produ
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../utility/app_colors.dart';
+
 class WishListScreen extends StatefulWidget {
   const WishListScreen({super.key});
 
@@ -29,46 +31,125 @@ class _WishListScreenState extends State<WishListScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          elevation: 0,
-          title: const Text(
-            'Wishlist',
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.black,
-              fontFamily: 'Poppins',
-            ),
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        centerTitle: true,
+        title: const Text(
+          'Wishlist',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            color: Color(0xff1E293B),
+            fontFamily: 'mn',
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: GetBuilder<WishlistController>(builder: (controller) {
-            if (controller.inProgress) {
-              return const ShimmerProductListGridView();
-            }
-            return controller.wishlistProductModel.data?.length==0 ?const Center(
-            child: Text(
-            "No Product in wishlist",
-            style: TextStyle(fontFamily: 'mn'),
-            ),
-            ): GridView.builder(
-              itemCount: controller.wishlistProductModel.data?.length ?? 0,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 0.7,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 6
+      ),
+          body: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: GetBuilder<WishlistController>(
+        builder: (controller) {
+
+          if (controller.inProgress) {
+            return const ShimmerProductListGridView();
+          }
+
+          if (controller.wishlistProductModel.data == null ||
+              controller.wishlistProductModel.data!.isEmpty) {
+
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  Icon(
+                    Icons.favorite_border_rounded,
+                    size: 90,
+                    color: Colors.grey.shade300,
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  const Text(
+                    "Your Wishlist is Empty",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: "mn",
+                      color: Color(0xff1E293B),
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  Text(
+                    "Save your favourite medicines\nand products here.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey.shade600,
+                      fontFamily: "mn",
+                      height: 1.5,
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Get.find<BottomNavController>().changeIndex(0);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryColor,
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 14,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                    ),
+                    icon: const Icon(
+                      Icons.shopping_bag_outlined,
+                      color: Colors.white,
+                    ),
+                    label: const Text(
+                      "Browse Products",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "mn",
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+
+                ],
               ),
-              itemBuilder: (context, index) {
-                return ProductCard(
-                  productModel:
-                      controller.wishlistProductModel.data![index].product!,
-                  isWishProduct: true,
-                );
-              },
             );
-          }),
-        ),
+          }
+
+          return GridView.builder(
+            padding: const EdgeInsets.only(top: 10, bottom: 20),
+            itemCount: controller.wishlistProductModel.data!.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: .54,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 12,
+            ),
+            itemBuilder: (_, index) {
+              return ProductCard(
+                productModel:
+                controller.wishlistProductModel.data![index].product!,
+                isWishProduct: true,
+              );
+            },
+          );
+        },
+      ),
+    ),
       ),
     );
   }

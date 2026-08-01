@@ -35,156 +35,238 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
+      backgroundColor: const Color(0xffF8FAFC),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: GetBuilder<TimeDecreaseController>(
-            builder: (TimeDecreaseController controller) {
+            builder: (TimeDecreaseController timerController) {
               return Form(
                 key: _formKey,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 160,
+
+                    const SizedBox(height: 40),
+
+                    Center(
+                      child: Container(
+                        width: 120,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(.05),
+                              blurRadius: 20,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
+                        ),
+                        child: const Center(
+                          child: AppLogo(
+                            height: 75,
+                            width: 75,
+                          ),
+                        ),
+                      ),
                     ),
-                    const AppLogo(
-                      height: 160,
-                      width: 100,
+
+                    const SizedBox(height: 40),
+
+                    const Text(
+                      "Verify OTP",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: "mn",
+                        color: Color(0xff1E293B),
+                      ),
                     ),
-                    const SizedBox(
-                      height: 24,
+
+                    const SizedBox(height: 8),
+
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          fontFamily: 'mn',
+                          fontSize: 15,
+                          color: Colors.grey,
+                        ),
+                        children: [
+                          const TextSpan(
+                            text: "We've sent a verification code to\n",
+                          ),
+                          TextSpan(
+                            text: widget.email,
+                            style: const TextStyle(
+                              color: AppColors.primaryColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    Text(
-                      'Enter OTP Code',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    Text(
-                      'A 4 digit OTP code has been sent',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
+
+                    const SizedBox(height: 35),
+
                     PinCodeTextField(
-                      length: 6,
-                      obscureText: false,
-                      animationType: AnimationType.fade,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      keyboardType: TextInputType.number,
-                      pinTheme: PinTheme(
-                          shape: PinCodeFieldShape.box,
-                          borderRadius: BorderRadius.circular(5),
-                          fieldHeight: 50,
-                          fieldWidth: 50,
-                          activeFillColor: Colors.white,
-                          inactiveColor: AppColors.primaryColor,
-                          inactiveFillColor: Colors.transparent,
-                          selectedFillColor: Colors.transparent,
-                          selectedColor: Colors.purple),
-                      animationDuration: const Duration(milliseconds: 300),
-                      backgroundColor: Colors.transparent,
-                      enableActiveFill: true,
                       appContext: context,
                       controller: otpTEController,
+                      length: 6,
+                      keyboardType: TextInputType.number,
+                      animationType: AnimationType.fade,
+                      animationDuration: const Duration(milliseconds: 250),
+                      enableActiveFill: true,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      textStyle: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'mn',
+                      ),
+                      pinTheme: PinTheme(
+                        shape: PinCodeFieldShape.box,
+                        borderRadius: BorderRadius.circular(16),
+                        fieldHeight: 58,
+                        fieldWidth: 50,
+                        activeFillColor: Colors.white,
+                        selectedFillColor: Colors.white,
+                        inactiveFillColor: Colors.white,
+                        activeColor: AppColors.primaryColor,
+                        selectedColor: AppColors.primaryColor,
+                        inactiveColor: Colors.grey.shade300,
+                      ),
                     ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    GetBuilder<VerifyOtpController>(builder: (controller) {
-                      return SizedBox(
-                        width: double.infinity,
-                        child: Visibility(
-                          visible: controller.inProgress == false,
-                          replacement: const CenterCircularProgressIndicator(),
-                          child: ElevatedButton(
+
+                    const SizedBox(height: 30),
+
+                    GetBuilder<VerifyOtpController>(
+                      builder: (verifyController) {
+                        return SizedBox(
+                          width: double.infinity,
+                          height: 56,
+                          child: verifyController.inProgress
+                              ? const CenterCircularProgressIndicator()
+                              : ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              backgroundColor: AppColors.primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                            ),
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 final bool response =
-                                    await controller.verifyOTP(
-                                        widget.email, otpTEController.text);
+                                await verifyController.verifyOTP(
+                                  widget.email,
+                                  otpTEController.text,
+                                );
+
                                 if (response) {
-                                  if (controller
+                                  if (verifyController
                                       .shouldNavigateCompleteProfile) {
-                                    Get.to(
-                                        () => const CompleteProfileScreen());
+                                    Get.to(() =>
+                                    const CompleteProfileScreen());
                                   } else {
-                                    Get.offAll(
-                                        () => const MainBottomNavScreen());
+                                    Get.offAll(() =>
+                                    const MainBottomNavScreen());
                                   }
                                 } else {
                                   Get.showSnackbar(
                                     GetSnackBar(
-                                      title: 'OTP Verification Failed!',
-                                      message: controller.msg,
+                                      title: 'OTP Verification Failed',
+                                      message: verifyController.msg,
                                       backgroundColor: Colors.red,
-                                      // duration: const Duration(seconds: 2),
+                                      // colorText: Colors.white,
                                     ),
                                   );
                                 }
                               }
                             },
                             child: const Text(
-                              'Next',
+                              "Verify OTP",
                               style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18,
+                                fontFamily: "mn",
+                                fontSize: 17,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    }),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        style: const TextStyle(color: Colors.grey),
-                        children: [
-                          const TextSpan(
-                            text: 'This code will expire in ',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                            ),
-                          ),
-                          TextSpan(
-                            text: '${controller.currentSeconds} s',
-                            style: const TextStyle(
-                              color: AppColors.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins',
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        if (controller.timeOver == true) {
-                          final result = await Get.find<SendOtpController>()
-                              .sendOtp(widget.email);
-                          if (result) {
-                            Get.snackbar('OTP Resend',
-                                'OTP resend to your email address');
-                          } else {
-                            Get.snackbar('Failed', 'OTP Resend Failed',
-                                backgroundColor: Colors.red);
-                          }
-                        }
+                        );
                       },
-                      child: const Text(
-                        'Resend Code',
-                        style: TextStyle(
-                            color: Colors.grey, fontFamily: 'Poppins'),
+                    ),
+
+                    const SizedBox(height: 30),
+
+                    Center(
+                      child: RichText(
+                        text: TextSpan(
+                          style: const TextStyle(
+                            fontFamily: 'mn',
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                          children: [
+                            const TextSpan(
+                              text: "Code expires in ",
+                            ),
+                            TextSpan(
+                              text: "${timerController.currentSeconds}s",
+                              style: const TextStyle(
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )
+                    ),
+
+                    const SizedBox(height: 14),
+
+                    Center(
+                      child: TextButton(
+                        onPressed: () async {
+                          if (timerController.timeOver) {
+                            final result =
+                            await Get.find<SendOtpController>()
+                                .sendOtp(widget.email);
+
+                            if (result) {
+                              Get.snackbar(
+                                "OTP Resent",
+                                "A new verification code has been sent.",
+                                snackPosition: SnackPosition.BOTTOM,
+                              );
+                            } else {
+                              Get.snackbar(
+                                "Failed",
+                                "Unable to resend OTP",
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                              );
+                            }
+                          }
+                        },
+                        child: Text(
+                          "Resend Code",
+                          style: TextStyle(
+                            color: timerController.timeOver
+                                ? AppColors.primaryColor
+                                : Colors.grey,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'mn',
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
                   ],
                 ),
               );
@@ -193,5 +275,12 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    otpTEController.dispose();
+    _timeDecreaseController.dispose(); // ONLY if you created it in this screen
+    super.dispose();
   }
 }
