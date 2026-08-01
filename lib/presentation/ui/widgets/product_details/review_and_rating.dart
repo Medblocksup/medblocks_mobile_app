@@ -40,30 +40,30 @@ Row reviewAndRatingRow(double rating, int productId,BuildContext context) {
         child: const Text(
           'Reviews',
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 18,
             color: AppColors.primaryColor,
-            fontWeight: FontWeight.w800,
-            letterSpacing: 0.7,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.9,
             fontFamily: 'mn',
           ),
         ),
       ),
       SizedBox(width: 7,),
-      InkWell(
-        onTap: () async {
-          final bool result =
-              await Get.find<WishlistController>().addToWishList(productId,context);
-
-        },
-        child: Padding(
-          padding: EdgeInsets.all(4.0),
-          child: Icon(
-            size: 28,
-            Icons.favorite,
-            color: AppColors.deepPrimaryColor,
-          ),
-        ),
-      )
+      // InkWell(
+      //   onTap: () async {
+      //     final bool result =
+      //         await Get.find<WishlistController>().addToWishList(productId,context);
+      //
+      //   },
+      //   child: Padding(
+      //     padding: EdgeInsets.all(4.0),
+      //     child: Icon(
+      //       size: 28,
+      //       Icons.favorite,
+      //       color: AppColors.deepPrimaryColor,
+      //     ),
+      //   ),
+      // ),
     ],
   );
 }

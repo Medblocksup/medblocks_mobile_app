@@ -186,9 +186,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           physics: NeverScrollableScrollPhysics(),
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
-                            childAspectRatio: 0.56,
+                            childAspectRatio: 0.52,
                             mainAxisSpacing: 04,
-                            crossAxisSpacing: 8
+                            crossAxisSpacing: 2
                           ),
                         itemCount: controller.productListModel.productList?.length ?? 0,
                         itemBuilder: (context, index) {
@@ -276,7 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   SizedBox get categoryList {
     return SizedBox(
-       height: 140,
+       height: 145,
       child: GetBuilder<CategoryListController>(builder: (controller) {
         return Visibility(
           visible: controller.inProgress == false,

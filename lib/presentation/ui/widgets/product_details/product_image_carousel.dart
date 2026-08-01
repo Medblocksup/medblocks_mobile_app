@@ -54,7 +54,7 @@ class _ProductImageCarouselWidgetState
           height: 4,
         ),
         Positioned(
-          bottom: 5,
+          bottom: 0,
           left: 0,
           right: 0,
           child: ValueListenableBuilder(
@@ -65,8 +65,8 @@ class _ProductImageCarouselWidgetState
                 children: [
                   for (int i = 0; i < widget.urls.length; i++)
                     Container(
-                      height: 14,
-                      width: 14,
+                      height: 5,
+                      width: 8,
                       margin: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
                         color:

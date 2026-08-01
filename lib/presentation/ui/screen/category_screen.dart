@@ -42,9 +42,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 child: GridView.builder(
                   itemCount: controller.categoryListModel.categoryList?.length ?? 0,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    childAspectRatio: 0.8,
+                    crossAxisCount: 3,
+                    childAspectRatio: 0.75,
                     mainAxisSpacing: 8,
+                    crossAxisSpacing: 8
                   ),
                   itemBuilder: (context, index) {
                     return CategoryItem(
