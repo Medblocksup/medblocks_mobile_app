@@ -5,6 +5,7 @@ import 'package:medical_app/presentation/ui/screen/account_screen.dart';
 import '../../../data/models/profile.dart';
 import '../../state_holders/auth_controller.dart';
 import '../../state_holders/read_profile_data_controller.dart';
+import '../utility/app_colors.dart';
 import 'auth/verify_email_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -16,54 +17,82 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF7F8FC),
-      appBar: AppBar(
-        title: const Text("Profile"),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   surfaceTintColor: Colors.white,
+      //   elevation: 0,
+      //   scrolledUnderElevation: 0,
+      //   centerTitle: false,
+      //   title: const Text(
+      //     "Account",
+      //     style: TextStyle(
+      //       fontSize: 24,
+      //       fontWeight: FontWeight.w700,
+      //       color: Color(0xff1E293B),
+      //       fontFamily: "mn",
+      //     ),
+      //   ),
+      // ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 60),
 
-            // Avatar
-            const CircleAvatar(
-              radius: 50,
-              backgroundColor: Color(0xffE8EEFF),
-              child: Icon(
-                Icons.person,
-                size: 55,
-                color: Colors.blue,
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(22),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(22),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(.04),
+                    blurRadius: 16,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  const Text(
+                    "Account",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                      fontFamily: 'mn',
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  Text(
+                    AuthController.profile?.data?.cusName ?? "Guest User",
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xff1E293B),
+                      fontFamily: 'mn',
+                    ),
+                  ),
+
+                  const SizedBox(height: 6),
+
+                  Text(
+                    AuthController.profile?.data?.user?.email ?? "",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey.shade600,
+                      fontFamily: 'mn',
+                    ),
+                  ),
+                ],
               ),
             ),
 
-            const SizedBox(height: 20),
-
-            // Name
-             Text(
-              AuthController.profile?.data?.cusName ?? "",
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            const SizedBox(height: 6),
-
-            // Email
-            Text(
-              AuthController.profile?.data?.user?.email ?? "",
-              style: TextStyle(
-                color: Colors.grey.shade600,
-                fontSize: 16,
-              ),
-            ),
-
-
-            const SizedBox(height: 40),
-
+            const SizedBox(height: 28),
             _menuTile(
               icon: Icons.language,
               title: "Language",
@@ -179,7 +208,7 @@ class ProfileScreen extends StatelessWidget {
     required IconData icon,
     required String title,
     required VoidCallback onTap,
-    Color iconColor = Colors.blue,
+    Color iconColor = AppColors.primaryColor,
     Color textColor = Colors.black,
   }) {
     return Material(
@@ -205,10 +234,11 @@ class ProfileScreen extends StatelessWidget {
                 child: Text(
                   title,
                   style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: textColor,
-                  ),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: textColor,
+                  fontFamily: 'mn',
+                ),
                 ),
               ),
               const Icon(
