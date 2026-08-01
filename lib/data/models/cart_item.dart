@@ -3,7 +3,7 @@ import 'package:medical_app/data/models/product_model.dart';
 class CartItem {
   int? id;
   String? email;
-  String? productId;
+  int? productId;
   String? color;
   String? size;
   String? createdAt;

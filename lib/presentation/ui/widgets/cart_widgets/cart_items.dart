@@ -25,29 +25,40 @@ class _CartProductItemState extends State<CartProductItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(ProductDetailScreen(productId: int.parse(widget.cartItem.productId!)));
+        Get.to(ProductDetailScreen(productId:widget.cartItem.productId!));
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+        padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-            color: Colors.white,
-            // boxShadow: [BoxShadow(spreadRadius: 0.02,blurStyle: BlurStyle.outer),],
-            borderRadius: BorderRadius.circular(16)),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(22),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(.04),
+              blurRadius: 16,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
         clipBehavior: Clip.hardEdge,
         child: Row(
           children: [
-            Expanded(
-              flex: 3,
-              child: Image.network(
-                getImage(widget.cartItem.product!.image.toString()) ?? '',
-                // width: 90,
-                // height: 90,
-                fit: BoxFit.cover,
-              ),
-            ),
+          Container(
+          width: 95,
+          height: 95,
+          decoration: BoxDecoration(
+            color: const Color(0xffF6F8FB),
+            borderRadius: BorderRadius.circular(18),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Image.network(
+            getImage(widget.cartItem.product!.image.toString()) ?? '',
+            fit: BoxFit.contain,
+          ),
+        ),
             const SizedBox(
-              width: 8,
+              width: 12,
             ),
             Expanded(
               flex: 6,
@@ -63,77 +74,84 @@ class _CartProductItemState extends State<CartProductItem> {
                             Text(
                               widget.cartItem.product?.title ?? '',
                               maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                                overflow: TextOverflow.ellipsis,
-                                fontFamily: 'mn',
+                                fontFamily: "mn",
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xff1E293B),
                               ),
                             ),
                             Text(
                               widget.cartItem.product!.shortDes ?? '',
                               maxLines: 3,
-
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                  fontSize: 9.5,
+                                  fontSize: 13,
+                                  height: 1.4,
+                                  color: Colors.grey,
                                   fontFamily: 'mn',
                                   overflow: TextOverflow.ellipsis),
                             ),
                           ],
                         ),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            Get.defaultDialog(
-                              textConfirm: 'Delete',
-                              textCancel: 'Cancel',
-                              title: 'Delete',
-                              middleText: 'Are you want to delete from cart?',
-                              confirmTextColor: Colors.white,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 16),
-                              titleStyle: const TextStyle(
-                                  fontFamily: 'mn',
-                                  color: AppColors.primaryColor),
-                              middleTextStyle:
-                                  const TextStyle(fontFamily: 'mn'),
-                              buttonColor: AppColors.primaryColor,
-                              onConfirm: () async {
-                                Get.back();
-                                final response =
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red.shade50,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: IconButton(
+                            onPressed: () {
+                              Get.defaultDialog(
+                                textConfirm: 'Delete',
+                                textCancel: 'Cancel',
+                                title: 'Delete',
+                                middleText: 'Are you want to delete from cart?',
+                                confirmTextColor: Colors.white,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 16),
+                                titleStyle: const TextStyle(
+                                    fontFamily: 'mn',
+                                    color: AppColors.primaryColor),
+                                middleTextStyle:
+                                    const TextStyle(fontFamily: 'mn'),
+                                buttonColor: AppColors.primaryColor,
+                                onConfirm: () async {
+                                  Get.back();
+                                  final response =
+                                      await Get.find<CartListController>()
+                                          .deleteFromCart(widget
+                                              .cartItem.product!.id!
+                                              .toInt());
+                                  if (response) {
                                     await Get.find<CartListController>()
-                                        .deleteFromCart(widget
-                                            .cartItem.product!.id!
-                                            .toInt());
-                                if (response) {
-                                  await Get.find<CartListController>()
-                                      .getCartList();
-                                } else {
-                                  customToast(
-                                      context, "Unable to delete from cart",
-                                      isError: true);
-                                }
-                              },
-                            );
-                          },
-                          icon: const Icon(
-                            CupertinoIcons.delete,
-                            color: AppColors.primaryColor,
-                          )),
+                                        .getCartList();
+                                  } else {
+                                    customToast(
+                                        context, "Unable to delete from cart",
+                                        isError: true);
+                                  }
+                                },
+                              );
+                            },
+                            icon: const Icon(
+                              CupertinoIcons.delete,
+                              color: AppColors.primaryColor,
+                            )),
+                      ),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '€ ${widget.cartItem.product?.price}' ?? '0',
+                        "€ ${widget.cartItem.product?.price}",
                         style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                          fontFamily: "mn",
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20,
                           color: AppColors.primaryColor,
-                          fontFamily: 'Poppins',
                         ),
                       ),
                       ValueListenableBuilder(
@@ -144,11 +162,14 @@ class _CartProductItemState extends State<CartProductItem> {
                             minValue: 1,
                             maxValue: 10,
                             step: 1,
-                            color: AppColors.primaryColor,
-                            buttonSizeHeight: 25,
-                            buttonSizeWidth: 30,
-                            textStyle:
-                                const TextStyle(fontFamily: 'mn', fontSize: 10),
+                            color: AppColors.primaryColor.withOpacity(0.9),
+                            buttonSizeHeight: 24,
+                            buttonSizeWidth: 34,
+                            textStyle: const TextStyle(
+                              fontFamily: 'mn',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                            ),
                             onChanged: (v) {
                               noOfCartItem.value = v.toInt();
                               Get.find<CartListController>().updateQuantity(
