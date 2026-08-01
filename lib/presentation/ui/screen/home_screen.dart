@@ -11,6 +11,7 @@ import 'package:medical_app/presentation/state_holders/read_profile_data_control
 import 'package:medical_app/presentation/state_holders/special_product_controller.dart';
 import 'package:medical_app/presentation/ui/screen/account_screen.dart';
 import 'package:medical_app/presentation/ui/screen/auth/verify_email_screen.dart';
+import 'package:medical_app/presentation/ui/screen/cart_screen.dart';
 import 'package:medical_app/presentation/ui/screen/category_screen.dart';
 import 'package:medical_app/presentation/ui/screen/notification_screen.dart';
 import 'package:medical_app/presentation/ui/screen/product_list_screen.dart';
@@ -20,12 +21,15 @@ import 'package:medical_app/presentation/ui/widgets/category_item_widget.dart';
 import 'package:medical_app/presentation/ui/widgets/circular_progress_indicator.dart';
 import 'package:medical_app/presentation/ui/widgets/home_widgets/banner_carousel.dart';
 import 'package:medical_app/presentation/ui/widgets/home_widgets/circle_icon_button.dart';
+import 'package:medical_app/presentation/ui/widgets/home_widgets/home_search_bar.dart';
 import 'package:medical_app/presentation/ui/widgets/home_widgets/section_title.dart';
 import 'package:medical_app/presentation/ui/widgets/product_card.dart';
 import 'package:medical_app/presentation/ui/widgets/shimmer_effect/carousel_shimmer.dart';
 import 'package:medical_app/presentation/ui/widgets/shimmer_effect/shimmer_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../data/models/banner_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,6 +39,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  List<BannerItem> bannerList = [
+    BannerItem(image: "assets/images/banner1.png"),
+    BannerItem(image: "assets/images/banner2.png"),
+    BannerItem(image: "assets/images/banner3.png"),
+    BannerItem(image: "assets/images/banner_image_1.png"),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
 
-             // searchTextFormField,
+             const HomeSearchBar(),
 
               SizedBox(
                 height: Get.height * 0.19,
@@ -60,7 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         )),
                     child: BannerCarouselWidget(
                       height: Get.height * 0.16,
-                      bannerList: controller.bannerListModal.data ?? [],
+                      // bannerList: controller.bannerListModal.data ?? [],
+                      bannerList: bannerList ?? [],
                     ),
                   );
                 }),
@@ -137,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 8,),
               SectionTitle(
                 isAll: true,
-                title: 'All Products',
+                title: 'Top Products',
                 onTap: () {
                   Get.to(
                     ProductListScreen(
@@ -167,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           physics: NeverScrollableScrollPhysics(),
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
-                            childAspectRatio: 0.70,
+                            childAspectRatio: 0.56,
                             mainAxisSpacing: 04,
                             crossAxisSpacing: 8
                           ),
@@ -257,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   SizedBox get categoryList {
     return SizedBox(
-       height: 120,
+       height: 140,
       child: GetBuilder<CategoryListController>(builder: (controller) {
         return Visibility(
           visible: controller.inProgress == false,
@@ -317,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen> {
   SizedBox productList(List<ProductModel> productList ) {
 
     return SizedBox(
-      height: 178,
+      height: 230,
       width: double.infinity,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
@@ -367,49 +379,54 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   AppBar get appBar => AppBar(
+    backgroundColor: Colors.white,
+    surfaceTintColor: Colors.white,
+    elevation: 0,
+    scrolledUnderElevation: 0,
+    centerTitle: false,
+    automaticallyImplyLeading: false,
 
-        elevation: 0,
-        leadingWidth: 5,
-        title: const Text(
-          "MEDBLOCKS",
+    titleSpacing: 20,
+
+    title: const Row(
+      children: [
+        // const Text(
+        //   '🩺',
+        //   style: TextStyle(
+        //     fontSize: 30,
+        //     fontWeight: FontWeight.bold
+        //   ),
+        // ),
+        //
+        // SizedBox(width: 12),
+
+        Text(
+          "MedBlocks",
           style: TextStyle(
-              color: AppColors.primaryColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-           fontFamily: 'mn'
-
+            fontSize: 28,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.8,
+            color: Color(0xff1E293B),
+            fontFamily: 'mn',
           ),
         ),
-        actions: [
-          // CircleIconButton(
-          //   onTap: () async {
-          //     // await AuthController.clearAuthData();
-          //     // Get.to(() => const VerifyEmailScreen());
-          //     if(AuthController.token ==  null){
-          //       Get.to(()=> const VerifyEmailScreen());
-          //     }else{
-          //       await Get.find<ReadProfileDataController>().readProfileData(AuthController.token!);
-          //       Get.to(()=> const AccountScreen());
-          //     }
-          //
-          //   },
-          //   iconData: Icons.person,
-          // ),
-          const SizedBox(
-            width: 8,
-          ),
+      ],
+    ),
 
-          GestureDetector(
-
-            onTap: () {
-              Get.to(()=> const NotificationScreen());
-            },
-            child: const Icon(Icons.shopping_cart,size: 28,),
-
+    actions: [
+      Padding(
+        padding: const EdgeInsets.only(right: 16),
+        child: IconButton(
+          splashRadius: 24,
+          onPressed: () {
+            Get.to(() => const CartScreen());
+          },
+          icon: const Icon(
+            Icons.shopping_cart_outlined,
+            color: Color(0xff1E293B),
+            size: 28,
           ),
-          const SizedBox(
-            width: 20,
-          ),
-        ],
-      );
-}
+        ),
+      ),
+    ],
+  );}

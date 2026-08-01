@@ -20,7 +20,7 @@ class BottomNavController extends GetxController {
   ];
 
   changeIndex(value) {
-    if (value == 2 || value == 3) {
+    if (value == 3 || value == 4) {
       if (Get.find<AuthController>().isTokenNotNull) {
         selectedIndex = value;
         update();

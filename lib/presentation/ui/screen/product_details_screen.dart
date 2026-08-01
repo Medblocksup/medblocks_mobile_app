@@ -116,20 +116,50 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ValueListenableBuilder(
                 valueListenable: noOfCartItem,
                 builder: (context, value, _) {
-                  return ItemCount(
-                    initialValue: value,
-                    minValue: 1,
-                    maxValue: 10,
-                    step: 1,
-                    color: AppColors.primaryColor,
-                    buttonSizeHeight: 25,
-                    buttonSizeWidth: 35,
+                  return Container(
+                    height: 46,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: Colors.grey.shade300),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
 
-                    textStyle: const TextStyle( fontFamily: 'mn',),
-                    onChanged: (v) {
-                      noOfCartItem.value = v.toInt();
-                    },
-                    decimalPlaces: 0,
+                        IconButton(
+                          splashRadius: 20,
+                          icon: const Icon(Icons.remove),
+                          onPressed: () {
+                            if (noOfCartItem.value > 1) {
+                              noOfCartItem.value--;
+                            }
+                          },
+                        ),
+
+                        SizedBox(
+                          width: 40,
+                          child: Center(
+                            child:  Text(
+                              "${noOfCartItem.value}",
+                              style: const TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )),
+                        ),
+
+                        IconButton(
+                          splashRadius: 20,
+                          icon: const Icon(Icons.add),
+                          onPressed: () {
+                            if (noOfCartItem.value < 10) {
+                              noOfCartItem.value++;
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   );
                 },
               )
@@ -138,8 +168,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           SizedBox(
             height: Get.height * 0.015,
           ),
-          reviewAndRatingRow(double.parse(productDetails.product?.star ?? "0"),
-              int.parse(productDetails.productId ?? "1"),context),
+          reviewAndRatingRow(double.parse(productDetails.product?.star.toString() ?? "1"),
+              int.parse(productDetails.productId.toString() ?? "1"),context),
           SizedBox(
             height: Get.height * 0.01,
           ),

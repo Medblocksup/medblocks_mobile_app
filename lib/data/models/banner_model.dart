@@ -4,7 +4,7 @@ class BannerItem {
     String? title,
     String? shortDes,
     String? image,
-    String? productId,
+    int? productId,
     String? createdAt,
     String? updatedAt,
   }) {
@@ -31,7 +31,7 @@ class BannerItem {
   String? _title;
   String? _shortDes;
   String? _image;
-  String? _productId;
+  int? _productId;
   String? _createdAt;
   String? _updatedAt;
 
@@ -40,7 +40,7 @@ class BannerItem {
     String? title,
     String? shortDes,
     String? image,
-    String? productId,
+    int? productId,
     String? createdAt,
     String? updatedAt,
   }) =>
@@ -62,7 +62,7 @@ class BannerItem {
 
   String? get image => _image;
 
-  String? get productId => _productId;
+  int? get productId => _productId;
 
   String? get createdAt => _createdAt;
 

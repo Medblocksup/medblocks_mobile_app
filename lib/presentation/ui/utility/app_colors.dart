@@ -18,8 +18,8 @@ class AppColors {
   };
 
   // static const Color primaryColor = Color(0xFF07ADAE);
-   static const Color primaryColor = Color.fromRGBO(152, 25, 14, 1);
-   static const Color lightPrimaryColor = Color.fromRGBO(152, 25, 14, 0.7);
+   static const Color primaryColor = Color.fromRGBO(237, 63, 73, 1);
+   static const Color deepPrimaryColor = Color.fromRGBO(229, 55, 67, 1);
    static const Color bgColor = Color.fromRGBO(226,232,240,1);
   static const Color whiteColor = Color.fromRGBO(241,245,249,1);
 }

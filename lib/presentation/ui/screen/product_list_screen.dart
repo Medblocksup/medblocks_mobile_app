@@ -53,7 +53,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
         title: Text(
           widget.category ?? 'Products',
           style: const TextStyle(
-            fontFamily: 'Poppins',
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: Color(0xff1E293B),
+            height: 1.35,
+            fontFamily: "mn",
           ),
         ),
 
@@ -78,7 +82,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     : widget.productListModel?.productList?.length ?? 0,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  childAspectRatio: 0.70,
+                  childAspectRatio: 0.59,
                   mainAxisSpacing: 4,
                   crossAxisSpacing: 5
                 ),

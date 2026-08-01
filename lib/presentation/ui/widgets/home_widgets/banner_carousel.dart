@@ -48,12 +48,12 @@ class _BannerCarouselWidgetState extends State<BannerCarouselWidget> {
                       width: Get.width,
                       margin: const EdgeInsets.symmetric(horizontal: 5.0),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(18),
                       ),
                       alignment: Alignment.center,
                       clipBehavior: Clip.hardEdge,
-                      child: Image.network(
-                        getImage(i.image!) ?? '',
+                      child: Image.asset(
+                        i.image! ?? '',
                         fit: BoxFit.fitHeight,
                         height: widget.height,
                       ),
@@ -111,20 +111,22 @@ class _BannerCarouselWidgetState extends State<BannerCarouselWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (int i = 0; i < widget.bannerList.length; i++)
-                  Container(
-                    height: 10,
-                    width: 10,
-                    margin: const EdgeInsets.all(4),
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 350),
+                    curve: Curves.easeOutCubic,
+
+                    width: i == index ? 24 : 8,
+                    height: i == index ? 7 : 8,
+
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+
                     decoration: BoxDecoration(
-                      color: i == index ? AppColors.primaryColor : const Color.fromRGBO(255, 255, 255, 1),
-                      border: Border.all(
-                        color:
-                            i == index ? AppColors.primaryColor : const Color.fromRGBO(128, 128, 128, 1),
-                      ),
-                      borderRadius: BorderRadius.circular(30),
+                      color: i == index
+                          ? AppColors.primaryColor
+                          : const Color(0xffD6D9DE),
+                      borderRadius: BorderRadius.circular(50),
                     ),
-                  )
-              ],
+                  )              ],
             );
           },
         )

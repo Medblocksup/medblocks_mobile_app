@@ -60,7 +60,7 @@ Row reviewAndRatingRow(double rating, int productId,BuildContext context) {
           child: Icon(
             size: 28,
             Icons.favorite,
-            color: AppColors.lightPrimaryColor,
+            color: AppColors.deepPrimaryColor,
           ),
         ),
       )
