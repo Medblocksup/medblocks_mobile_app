@@ -45,17 +45,21 @@ class _BannerCarouselWidgetState extends State<BannerCarouselWidget> {
                 return Stack(
                   children: [
                     Container(
-                      width: Get.width,
+                      // width: Get.width,
                       margin: const EdgeInsets.symmetric(horizontal: 5.0),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
+                        borderRadius: BorderRadius.circular(0),
                       ),
                       alignment: Alignment.center,
                       clipBehavior: Clip.hardEdge,
-                      child: Image.asset(
-                        i.image! ?? '',
-                        fit: BoxFit.fitHeight,
-                        height: widget.height,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          i.image! ?? '',
+                          fit: BoxFit.fitHeight,
+                          height: widget.height,
+
+                        ),
                       ),
                     ),
 

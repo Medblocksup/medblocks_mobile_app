@@ -50,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar,
+      backgroundColor: AppColors.bgColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -57,9 +58,10 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
 
              const HomeSearchBar(),
+              // SizedBox(height: 2,),
 
               SizedBox(
-                height: Get.height * 0.19,
+                height: Get.height * 0.18,
                 child: GetBuilder<HomeBannerController>(builder: (controller) {
                   return Visibility(
                     visible: controller.inProgress == false,
@@ -70,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: Get.height * 0.16,
                         )),
                     child: BannerCarouselWidget(
-                      height: Get.height * 0.16,
+                      height: Get.height * 0.15,
                       // bannerList: controller.bannerListModal.data ?? [],
                       bannerList: bannerList ?? [],
                     ),
@@ -84,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Get.to(()=> const CategoryScreen());
                 },
               ),
+              SizedBox(height: 4,),
               categoryList,
               // SectionTitle(
               //   title: 'Brands',
@@ -105,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //     },
             //   ),
             //   popularProduct,
+              SizedBox(height: 4,),
               SectionTitle(
                 isAll: false,
                 title: 'Popular Products',
@@ -118,7 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
+              SizedBox(height: 4,),
               _popularProducts(),
+              SizedBox(height: 4,),
               SectionTitle(
                 isAll: false,
                 title: 'Special Products',
@@ -132,6 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
+              SizedBox(height: 4,),
               _specialProducts(),
               // SectionTitle(
               //   title: 'Special ',
@@ -379,7 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   AppBar get appBar => AppBar(
-    backgroundColor: Colors.white,
+    backgroundColor: AppColors.primaryColor,
     surfaceTintColor: Colors.white,
     elevation: 0,
     scrolledUnderElevation: 0,
@@ -406,7 +413,8 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 28,
             fontWeight: FontWeight.w700,
             letterSpacing: -0.8,
-            color: Color(0xff1E293B),
+            // color: Color(0xff1E293B),
+            color: AppColors.whiteColor,
             fontFamily: 'mn',
           ),
         ),
@@ -423,7 +431,8 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           icon: const Icon(
             Icons.shopping_cart_outlined,
-            color: Color(0xff1E293B),
+            // color: Color(0xff1E293B),
+            color: Colors.white,
             size: 28,
           ),
         ),

@@ -37,26 +37,84 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
     return GetBuilder<BottomNavController>(
         builder: (BottomNavController controller) {
       return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: AppColors.primaryColor,
-            unselectedItemColor: Colors.grey,
-            showUnselectedLabels: true,
-            currentIndex: controller.selectedIndex,
-            onTap: (value) {
-              controller.changeIndex(value);
-            },
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.house_fill,), label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.camera_enhance_outlined,), label: 'Scan'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.document_scanner_rounded), label: 'Appointment'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite), label: 'Saved'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: 'Account'),
-            ]),
+        bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0x14000000),
+                blurRadius: 20,
+                offset: Offset(0, -4),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+            child: BottomNavigationBar(
+
+              type: BottomNavigationBarType.fixed,
+              elevation: 0,
+              backgroundColor: Colors.white,
+              currentIndex: controller.selectedIndex,
+              onTap: controller.changeIndex,
+
+              selectedItemColor: AppColors.primaryColor,
+              unselectedItemColor: const Color(0xff94A3B8),
+
+              selectedFontSize: 12,
+              unselectedFontSize: 12,
+
+              selectedLabelStyle: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontFamily: 'mn',
+              ),
+              unselectedLabelStyle: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontFamily: 'mn',
+              ),
+
+              items: const [
+
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined),
+                  activeIcon: Icon(Icons.home_rounded),
+                  label: 'Home',
+                ),
+
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.qr_code_scanner_outlined),
+                  activeIcon: Icon(Icons.qr_code_scanner),
+                  label: 'Scan',
+                ),
+
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.calendar_month_outlined),
+                  activeIcon: Icon(Icons.calendar_month),
+                  label: 'Appointment',
+                ),
+
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite_border_rounded),
+                  activeIcon: Icon(Icons.favorite_rounded),
+                  label: 'Saved',
+                ),
+
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline_rounded),
+                  activeIcon: Icon(Icons.person_rounded),
+                  label: 'Profile',
+                ),
+              ],
+            ),
+          ),
+        ),
         body: controller.screens[controller.selectedIndex],
       );
     });

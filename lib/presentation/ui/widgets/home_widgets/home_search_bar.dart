@@ -63,7 +63,8 @@ class HomeSearchBar extends StatelessWidget {
               height: 36,
               decoration: BoxDecoration(
                 color: AppColors.primaryColor.withOpacity(.08),
-                borderRadius: BorderRadius.circular(10),
+                // borderRadius: BorderRadius.circular(10),
+                  shape: BoxShape.circle
               ),
               child: IconButton(
                 padding: EdgeInsets.zero,

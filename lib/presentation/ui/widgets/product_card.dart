@@ -50,7 +50,7 @@ class ProductCard extends StatelessWidget {
               children: [
                 Container(
                   height: 105,
-                  width: double.infinity,
+                  // width: 200,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(2),
                   child: Image.network(

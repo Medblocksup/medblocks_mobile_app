@@ -17,10 +17,11 @@ class AppColors {
     900:const Color.fromRGBO(4,131,184, 1),
   };
 
-  // static const Color primaryColor = Color(0xFF07ADAE);
+  // static const Color primaryColor = Color(0xFF8FAFC);
    static const Color primaryColor = Color.fromRGBO(237, 63, 73, 1);
    static const Color deepPrimaryColor = Color.fromRGBO(229, 55, 67, 1);
-   static const Color bgColor = Color.fromRGBO(226,232,240,1);
+   // static const Color bgColor = Color.fromRGBO(226,232,240,1);
+   static const Color bgColor = Color(0x0ff8fafc);
   static const Color whiteColor = Color.fromRGBO(241,245,249,1);
 }
 
