@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../data/models/doctor_model.dart';
+import '../utility/app_colors.dart';
 import 'doctor_details_screen.dart';
 
 
@@ -107,37 +108,70 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
 
     return Scaffold(
       backgroundColor: const Color(0xffF6F8FB),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: const Text(
-          "Find Doctor",
-          style: TextStyle(color: Colors.black),
+      appBar:  AppBar(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      centerTitle: false,
+      title: const Text(
+        "Find Doctors",
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w700,
+          color: Color(0xff1E293B),
+          fontFamily: "mn",
         ),
       ),
+    ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: TextField(
-              controller: searchController,
-              onChanged: (value) {
-                setState(() {
-                  searchText = value;
-                });
-              },
-              decoration: InputDecoration(
-                hintText: "Search doctors...",
-                prefixIcon: const Icon(Icons.search),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide.none,
-                ),
-              ),
+      Padding(
+      padding: const EdgeInsets.fromLTRB(16, 18, 16, 22),
+      child: TextField(
+        controller: searchController,
+        onChanged: (value) {
+          setState(() {
+            searchText = value;
+          });
+        },
+        style: const TextStyle(
+          fontFamily: 'mn',
+          fontSize: 15,
+        ),
+        decoration: InputDecoration(
+          hintText: "Search doctor, specialty...",
+          hintStyle: TextStyle(
+            color: Colors.grey.shade500,
+            fontFamily: 'mn',
+          ),
+          prefixIcon: const Icon(
+            Icons.search_rounded,
+            color: AppColors.primaryColor,
+          ),
+          filled: true,
+          fillColor: Colors.white,
+          contentPadding: const EdgeInsets.symmetric(vertical: 18),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: BorderSide(
+              color: Colors.grey.shade200,
             ),
           ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: const BorderSide(
+              color: AppColors.primaryColor,
+              width: 1.2,
+            ),
+          ),
+        ),
+      ),
+    ),
           Expanded(
             child: ListView.builder(
               itemCount: filteredDoctors.length,
@@ -156,72 +190,120 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                     );
                   },
                   child: Container(
-                    margin: const EdgeInsets.only(bottom: 16),
-                    padding: const EdgeInsets.all(14),
+                    margin: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(22),
                       boxShadow: [
                         BoxShadow(
-                          blurRadius: 10,
-                          color: Colors.black.withOpacity(.05),
+                          color: Colors.black.withOpacity(.04),
+                          blurRadius: 16,
+                          offset: const Offset(0, 6),
                         ),
                       ],
                     ),
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          radius: 35,
-                          backgroundImage:
-                          NetworkImage(doctor.image),
+
+                        Hero(
+                          tag: doctor,
+                          child: CircleAvatar(
+                            radius: 36,
+                            backgroundColor: Colors.grey.shade100,
+                            backgroundImage: NetworkImage(doctor.image),
+                          ),
                         ),
-                        const SizedBox(width: 15),
+
+                        const SizedBox(width: 16),
+
                         Expanded(
                           child: Column(
-                            crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+
                               Text(
                                 doctor.name,
                                 style: const TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff1E293B),
+                                  fontFamily: 'mn',
                                 ),
                               ),
-                              const SizedBox(height: 4),
+
+                              const SizedBox(height: 5),
+
                               Text(
                                 doctor.specialty,
                                 style: TextStyle(
-                                  color: Colors.grey[600],
+                                  fontSize: 14,
+                                  color: Colors.grey.shade600,
+                                  fontFamily: 'mn',
                                 ),
                               ),
-                              const SizedBox(height: 8),
+
+                              const SizedBox(height: 12),
+
                               Row(
                                 children: [
+
                                   const Icon(
-                                    Icons.star,
+                                    Icons.star_rounded,
                                     color: Colors.amber,
                                     size: 18,
                                   ),
-                                  const SizedBox(width: 4),
+
+                                  const SizedBox(width: 5),
+
                                   Text(
                                     doctor.rating.toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'mn',
+                                    ),
                                   ),
-                                  const SizedBox(width: 15),
-                                  const Icon(
-                                    Icons.work_outline,
+
+                                  const SizedBox(width: 18),
+
+                                  Icon(
+                                    Icons.workspace_premium_rounded,
                                     size: 18,
+                                    color: Colors.blueGrey.shade400,
                                   ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    doctor.experience,
+
+                                  const SizedBox(width: 5),
+
+                                  Expanded(
+                                    child: Text(
+                                      doctor.experience,
+                                      style: const TextStyle(
+                                        fontFamily: 'mn',
+                                      ),
+                                    ),
                                   ),
+
                                 ],
-                              )
+                              ),
+
                             ],
                           ),
                         ),
-                        const Icon(Icons.arrow_forward_ios_rounded),
+
+                        Container(
+                          width: 38,
+                          height: 38,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor.withOpacity(.08),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 16,
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+
                       ],
                     ),
                   ),
