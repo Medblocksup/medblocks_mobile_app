@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 class ScannerScreen extends StatefulWidget {
   final bool isQrCode;
 
   const ScannerScreen({super.key, required this.isQrCode});
+
+
 
   @override
   State<ScannerScreen> createState() => _ScannerScreenState();
@@ -13,14 +18,16 @@ class ScannerScreen extends StatefulWidget {
 
 class _ScannerScreenState extends State<ScannerScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  Barcode? result;
+  QRViewController? controller;
   QRViewController? qrController;
   String qrResult = "Scanned data will appear here";
 
-  void _onQrViewCreated(QRViewController controller) {
-    qrController = controller;
+  void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       setState(() {
-        qrResult = scanData.code!;
+        result = scanData;
       });
     });
   }
@@ -38,7 +45,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                   ? const EdgeInsets.all(32.0)
                   : const EdgeInsets.symmetric(horizontal: 30, vertical: 100),
               child: Stack(children: [
-                QRView(key: qrKey, onQRViewCreated: _onQrViewCreated),
+                QRView(key: qrKey, onQRViewCreated: _onQRViewCreated),
                  Center(
                   child: widget.isQrCode ? Image.asset(
                     "assets/images/scanlogo.png",
@@ -112,8 +119,18 @@ class _ScannerScreenState extends State<ScannerScreen> {
   }
 
   @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      controller!.pauseCamera();
+    } else if (Platform.isIOS) {
+      controller!.resumeCamera();
+    }
+  }
+
+  @override
   void dispose() {
-    qrController!.dispose();
+    qrController?.dispose();
     super.dispose();
   }
 }
