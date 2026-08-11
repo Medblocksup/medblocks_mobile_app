@@ -1,5 +1,7 @@
 # MEDBLOCKS
 
+![ci](https://github.com/Medblocksup/medblocks_mobile_app/actions/workflows/ci.yml/badge.svg)
+
 Application mobile de traçabilité des lots pharmaceutiques : lecture du code
 porté par la boîte, résolution du lot, affichage de la provenance déclarée.
 
