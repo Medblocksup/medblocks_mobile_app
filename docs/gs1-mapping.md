@@ -1,44 +1,43 @@
-# Spécification de lecture des identifiants GS1
+# GS1 identifier parsing specification
 
-Document de travail. Décrit le format attendu et les règles de lecture. La mise
-en œuvre est suivie en ticket.
+Working document. Describes the expected format and reading rules.
+Implementation tracked in issue #8.
 
-## 1. Objet
-Le code porté par une boîte de médicament est un DataMatrix GS1. La lecture
-doit extraire quatre identifiants et rejeter tout code incomplet.
+## 1. Purpose
+The code carried by a medicine box is a GS1 DataMatrix. Parsing must extract
+four identifiers and reject any incomplete code.
 
-## 2. Identifiants visés
-| AI | Signification | Format | Obligatoire |
+## 2. Target identifiers
+| AI | Meaning | Format | Required |
 |---|---|---|---|
-| 01 | code produit (GTIN) | 14 chiffres | oui |
-| 17 | date de péremption | AAMMJJ | oui |
-| 10 | numéro de lot | 20 caractères alphanumériques max | oui |
-| 21 | numéro de série | 20 caractères alphanumériques max | non |
+| 01 | product code (GTIN) | 14 digits | yes |
+| 17 | expiry date | YYMMDD | yes |
+| 10 | batch number | 20 alphanumeric chars max | yes |
+| 21 | serial number | 20 alphanumeric chars max | no |
 
 ## 3. Structure
-Les identifiants sont concaténés. Les AI de longueur variable (10, 21) sont
-terminés par le séparateur GS (0x1D). Les AI de longueur fixe (01, 17) ne le
-sont pas.
+Identifiers are concatenated. Variable-length AIs (10, 21) are terminated by
+the GS separator (0x1D). Fixed-length AIs (01, 17) are not.
 
-## 4. Règles de lecture
-1. Rejeter le code si l'AI 01 est absent ou si le GTIN n'a pas 14 chiffres.
-2. Lire l'AI 17 et convertir en date ; rejeter une date invalide.
-3. Lire l'AI 10 jusqu'au séparateur GS ou à la fin de la chaîne.
-4. Signaler un lot expiré sans bloquer l'affichage.
-5. Ne jamais faire confiance au contenu affiché : revérifier côté service.
+## 4. Reading rules
+1. Reject the code if AI 01 is missing or the GTIN is not 14 digits.
+2. Read AI 17 and convert to a date; reject an invalid date.
+3. Read AI 10 up to the GS separator or end of string.
+4. Flag an expired batch without blocking display.
+5. Never trust displayed content: re-check server-side.
 
-## 5. Cas d'erreur
-| Cas | Comportement attendu |
+## 5. Error cases
+| Case | Expected behaviour |
 |---|---|
-| Code tronqué | message explicite, bascule en saisie manuelle |
-| GTIN invalide | refus, message |
-| Date invalide | refus, message |
-| AI 10 absent | refus : un lot sans numéro n'est pas traçable |
+| Truncated code | explicit message, fall back to manual entry |
+| Invalid GTIN | reject, message |
+| Invalid date | reject, message |
+| Missing AI 10 | reject: a batch without a number is not traceable |
 
-## 6. Cas de test à écrire
-- code complet valide ;
-- code sans AI 10 ;
-- code avec date impossible (mois 13) ;
-- code tronqué au milieu du GTIN ;
-- code avec séparateur GS manquant ;
-- code avec caractères non ASCII.
+## 6. Test cases to write
+- valid complete code;
+- code without AI 10;
+- code with an impossible date (month 13);
+- code truncated in the middle of the GTIN;
+- code with a missing GS separator;
+- code with non-ASCII characters.
