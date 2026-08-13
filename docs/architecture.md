@@ -1,45 +1,46 @@
 # Architecture
 
-Document de travail. Décrit l'organisation technique de l'application et ses
-limites connues.
+Working document. Describes the technical organisation of the application and
+its known limits.
 
-## 1. Vue d'ensemble
-Application cliente Flutter (Dart). Back-end Firebase : authentification,
-base Firestore, stockage de fichiers. Pas de serveur applicatif propre à ce
-stade.
+## 1. Overview
+Flutter client (Dart). Firebase back end: authentication, Firestore, file
+storage. No application server of its own at this stage.
 
-## 2. Couches
-- `screens` : écrans par domaine, sans logique métier.
-- `widgets` : composants d'affichage réutilisables.
-- `services` : accès Firestore, session, caméra, décodage.
-- `models` : structures de données et sérialisation.
-- `tokens` : jetons de design.
+## 2. Layers
+- `presentation/ui/screen` : one screen per domain, no business logic.
+- `presentation/ui/widgets` : reusable display components.
+- `presentation/state_holders` : state and controllers.
+- `data/services` : Firestore access, session, camera, decoding.
+- `data/models` : data structures and serialisation.
+- `data/utilities` : helpers.
+- `assets` : fonts and images.
 
-## 3. Flux de vérification
-1. Ouverture de l'écran de lecture, demande de permission caméra.
-2. Décodage du code porté par la boîte.
-3. Extraction du code produit.
-4. Requête Firestore sur la collection `lots`.
-5. Affichage du résultat : provenance déclarée, date de péremption, statut.
+## 3. Verification flow
+1. Open the scan screen, request camera permission.
+2. Decode the code carried by the box.
+3. Extract the product code.
+4. Query the `lots` collection in Firestore.
+5. Display the result: declared provenance, expiry date, status.
 
-## 4. Données
-| Collection | Contenu | Accès |
+## 4. Data
+| Collection | Content | Access |
 |---|---|---|
-| `produits` | fiches produit, composition, prix | lecture publique |
-| `lots` | numéro, produit, provenance, péremption | lecture authentifiée |
-| `commandes` | panier, adresse, statut | propriétaire |
-| `profils` | compte, rôle | propriétaire |
+| `produits` | product sheets, composition, price | public read |
+| `lots` | number, product, provenance, expiry | authenticated read |
+| `commandes` | cart, address, status | owner |
+| `profils` | account, role | owner |
 
-Aucune donnée de santé identifiante n'est stockée à ce stade.
+No identifying health data is processed at this stage.
 
-## 5. Modèle de menaces
-| Menace | Parade actuelle | Reste à faire |
+## 5. Threat model
+| Threat | Current mitigation | Remaining work |
 |---|---|---|
-| Falsification d'un lot en base | règles Firestore, écriture restreinte | journal d'audit |
-| Rejeu d'un code déjà scanné | horodatage de la lecture | ancrage d'empreinte |
-| Interception réseau | TLS | épinglage de certificat |
+| Batch record falsified in the database | Firestore rules, restricted writes | audit log |
+| Replay of an already scanned code | read timestamp | hash anchoring |
+| Network interception | TLS | certificate pinning |
 
-## 6. Limites assumées
-- Firebase n'est pas certifié HDS : migration avant tout pilote en officine.
-- Pas de registre ni d'ancrage : la provenance est déclarative.
-- Pas de mode hors connexion : l'écran de résultat échoue sans réseau.
+## 6. Accepted limits
+- Firebase is not HDS certified: migration required before any pharmacy pilot.
+- No ledger and no anchoring: provenance is declarative.
+- No offline mode: the result screen fails without network.
