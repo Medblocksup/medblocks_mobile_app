@@ -10,5 +10,4 @@
 
 ## Issue tracking
 
-Le suivi par tickets a été mis en place en novembre 2026. L'historique
-antérieur figure uniquement dans les commits.
+Ticketing was introduced in November 2026. Earlier history is visible in the commits only.
