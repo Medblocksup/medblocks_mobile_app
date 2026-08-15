@@ -1,11 +1,11 @@
-# Politique de sécurité
+# Security policy
 
-## Signaler une vulnérabilité
-Écrire à info@websplace.net. Pas de ticket public pour une faille non corrigée.
+## Reporting a vulnerability
+Write to info@websplace.net. No public ticket for an unpatched flaw.
 
-## Délais
-Accusé de réception sous 72 heures ouvrées. Correction selon la gravité.
+## Response times
+Acknowledgement within 72 working hours. Fix according to severity.
 
-## Périmètre
-Client mobile, règles Firestore, traitement des données de lot.
-Hors périmètre : l'infrastructure Firebase elle-même.
+## Scope
+Mobile client, Firestore rules, batch data handling.
+Out of scope: the Firebase infrastructure itself.
