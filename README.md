@@ -44,3 +44,4 @@ Version Flutter épinglée via FVM.
 
 ## Configuration locale
 `android/app/keystore.properties` et `android_jks/` ne sont pas versionnés.
+Documentation interne en français dans `docs/`.
