@@ -20,11 +20,13 @@ Version Flutter épinglée via FVM.
 ## Arborescence
 | Dossier | Contenu |
 |---|---|
-| `lib/models` | modèles de données |
-| `lib/services` | accès réseau, session, caméra |
-| `lib/screens` | écrans par domaine |
-| `lib/widgets` | composants réutilisables |
-| `lib/tokens` | jetons de design |
+| `lib/data/models` | modèles de données |
+| `lib/data/services` | accès réseau et stockage |
+| `lib/data/utilities` | utilitaires |
+| `lib/presentation/state_holders` | état et contrôleurs |
+| `lib/presentation/ui/screen` | écrans |
+| `lib/presentation/ui/widgets` | composants réutilisables |
+| `lib/assets` | polices et images |
 | `docs` | documentation technique |
 | `test` | tests unitaires |
 
