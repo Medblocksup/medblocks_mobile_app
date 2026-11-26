@@ -1,16 +1,46 @@
-# medical_app
+# MEDBLOCKS
 
-A new Flutter project.
+Application mobile de traçabilité des lots pharmaceutiques : lecture du code
+porté par la boîte, résolution du lot, affichage de la provenance déclarée.
 
-## Getting Started
+Publiée sur l'App Store (n° 6504901422) et sur Google Play
+(com.medblocks.medblockseu).
 
-This project is a starting point for a Flutter application.
+## Périmètre actuel
+- Catalogue et fiches produit : composition, dosage, précautions
+- Lecture de code et écran de résultat de vérification
+- Suivi de catalogue et de lots
+- Compte utilisateur, panier, commandes
+- Mise en relation avec un praticien
 
-A few resources to get you started if this is your first Flutter project:
+## Stack
+Flutter (Dart), Firebase (authentification, Firestore, stockage).
+Version Flutter épinglée via FVM.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Arborescence
+| Dossier | Contenu |
+|---|---|
+| `lib/models` | modèles de données |
+| `lib/services` | accès réseau, session, caméra |
+| `lib/screens` | écrans par domaine |
+| `lib/widgets` | composants réutilisables |
+| `lib/tokens` | jetons de design |
+| `docs` | documentation technique |
+| `test` | tests unitaires |
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Historique des versions
+| Version | Date | Contenu |
+|---|---|---|
+| 1.0.6 | 11/08/2026 | refonte d'interface, pages 16 KB |
+| 1.0.3 | 12/06/2025 | corrections, publication Play Store |
+| 1.0.2 | 15/04/2025 | corrections d'interface |
+| 1.0.1 | 15/04/2025 | première publication, fonctions e-pharmacie |
+
+## Limites connues
+- Hébergement Firebase non certifié HDS ; migration planifiée avant le pilote.
+- Parsing des identifiants GS1 partiel : le code produit est lu, les
+  identifiants de lot et de péremption ne sont pas encore traités.
+- Pas d'ancrage d'empreinte à ce stade.
+
+## Configuration locale
+`android/app/keystore.properties` et `android_jks/` ne sont pas versionnés.
